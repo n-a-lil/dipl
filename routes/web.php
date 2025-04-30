@@ -1,0 +1,87 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\TrackController;
+use App\Http\Controllers\ArtistController;
+use App\Http\Controllers\TopContentController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\RatingTrackController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PlaylistController;
+use App\Http\Controllers\AlbumController;
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/auth/form', [AuthController::class, 'showForm'])->name('auth.form');
+Route::get('/auth/register', [AuthController::class, 'register'])->name('auth.register');
+Route::get('/auth/login', [AuthController::class, 'login'])->name('auth.login');
+Route::get('/auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
+Route::get('/home-content', [PageController::class, 'homeContent']);
+Route::get('/library-content', [PageController::class, 'libraryContent']);
+Route::get('/tracks', [TrackController::class, 'tracksContent']);
+Route::get('/artist/{id}', [ArtistController::class, 'show']);
+Route::get('/home-content', [TopContentController::class, 'index']);
+Route::get('/reviews/{reviewId}/like', [ReviewController::class, 'likeReview']);
+Route::get('/ratingTrack', [RatingTrackController::class, 'ratingTrack']);
+Route::get('/rating-form/{trackId}', [RatingTrackController::class, 'ratingForm']);
+Route::get('/search-tracks', [SearchController::class, 'searchTracks']);
+Route::get('/selected-track/{id}', [SearchController::class, 'SelectedTrack']);
+Route::get('/submit-rating', [RatingTrackController::class, 'submitRating']);
+Route::get('/review-form/{trackId}', [ReviewController::class, 'showReviewForm']);
+Route::get('/submit-review', [ReviewController::class, 'submitReview']);
+Route::get('/profile', [ProfileController::class, 'showProfile']);
+Route::get('/history', [TrackController::class, 'showHistory']);
+Route::get('/add-to-history', [TrackController::class, 'addToHistory']);
+Route::get('/profile/edit', [ProfileController::class, 'editProfile']);
+Route::get('/profile/delete', [ProfileController::class, 'deleteProfile']);
+Route::post('/profile/upload-avatar', [ProfileController::class, 'uploadAvatar']);
+Route::get('/uploadtrack', [TrackController::class, 'showUploadForm']);
+Route::get('/uploadalbum', [TrackController::class, 'showUploadFormAlbum']);
+Route::post('/addtrack', [TrackController::class, 'uploadTrack']);
+Route::get('/mytrack', [TrackController::class, 'showMyTracks']);
+Route::get('/delete-track/{trackId}', [TrackController::class, 'deleteTrack']);
+Route::get('/playlists', [PlaylistController::class, 'playlists']);
+Route::get('/playlists/{playlistId}/tracks', [PlaylistController::class, 'getPlaylistTracks']);
+Route::get('/playlists/{playlistId}/remove-track/{trackId}', [PlaylistController::class, 'removeTrack']);
+Route::get('/playlist-selection/{trackId}', [PlaylistController::class, 'showPlaylistSelection']);
+Route::get('/playlists/{playlistId}/add-track/{trackId}', [PlaylistController::class, 'addTrackToPlaylist']);
+Route::get('/playlists/create-form', [PlaylistController::class, 'showCreateForm']);
+Route::post('/playlists/create', [PlaylistController::class, 'createPlaylist']);
+Route::get('/playlists/delete/{id}', [PlaylistController::class, 'delete']);
+Route::get('/playlists/{playlist}/edit-form', [PlaylistController::class, 'editForm']);
+Route::post('/playlists/{playlist}/update', [PlaylistController::class, 'update']);
+Route::get('/albums', [TrackController::class, 'albums']);
+Route::get('/album/{albumId}/tracks', [TrackController::class, 'showAlbumTracks']);
+Route::get('/all', [TrackController::class, 'all']);
+Route::get('/upload', [TrackController::class, 'upload']);
+Route::get('/myalbum', [TrackController::class, 'showMyAlbums']);
+Route::get('/album/{album}/tracks', [TrackController::class, 'showAlbumTracks']);
+Route::get('/my/album/{album}/tracks', [TrackController::class, 'showMyAlbumTracks']);
+Route::get('/album/{album}/first-track', [TrackController::class, 'getFirstTrack']);
+Route::post('/addalbum', [TrackController::class, 'uploadAlbum']);
+Route::get('/my', [TrackController::class, 'my']);
+Route::get('/myratingtracks', [TrackController::class, 'showMyRatedTracks']);
+Route::get('/artist/{id}/tracks', [ArtistController::class, 'tracks']);
+Route::get('/artist/{id}/albums', [ArtistController::class, 'albums']);
+Route::get('/album/{id}/tracks-data', [AlbumController::class, 'getTracksData']);
+Route::get('/artist/{artistId}/albums/{albumId}/tracks', [ArtistController::class, 'albumTracks']);
+Route::get('/home-selected-track/{id}', [SearchController::class, 'homeSelectedTrack']);
+Route::get('/selected-artist/{id}', [SearchController::class, 'selectedArtist']);
+Route::get('/universal-search', [SearchController::class, 'universalSearch']);
+Route::get('/selected-album/{id}', [SearchController::class, 'selectedAlbum']);
+
+Route::get('/ratingAlbum', [RatingTrackController::class, 'ratingAlbum']);
+Route::get('/rating-album-form/{albumId}', [RatingTrackController::class, 'ratingAlbumForm']);
+Route::get('/submit-album-rating', [RatingTrackController::class, 'submitAlbumRating']);
+Route::get('/search-albums', [SearchController::class, 'searchAlbums']);
+
+Route::get('/track/{track}/card', [TrackController::class, 'showCard']);
+Route::get('/album/{album}/card', [AlbumController::class, 'showAlbumCard']);
+
+Route::get('/artist/{artistId}/ratings', [ArtistController::class, 'artistRatings']);
